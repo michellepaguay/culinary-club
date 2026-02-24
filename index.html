@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Culinary Club — School Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #fdf6ec;
+      --warm-white: #fffaf4;
+      --terracotta: #c8502b;
+      --rust: #a83820;
+      --sage: #5a7a5c;
+      --dark: #1e1810;
+      --muted: #7a6a5a;
+      --card-bg: #fff9f2;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--cream);
+      color: var(--dark);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem 5vw;
+      background: var(--warm-white);
+      border-bottom: 1px solid #e8ddd0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 1.5rem;
+      color: var(--terracotta);
+      letter-spacing: -0.5px;
+    }
+
+    .nav-logo span { color: var(--sage); }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--terracotta); }
+
+    /* ── HERO ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 85vh;
+      overflow: hidden;
+    }
+
+    .hero-text {
+      padding: 6rem 5vw 4rem 6vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 5vw, 5.5rem);
+      line-height: 1.05;
+      font-weight: 900;
+      color: var(--dark);
+      margin-bottom: 1.8rem;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--terracotta);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 400px;
+      margin-bottom: 2.5rem;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--terracotta);
+      color: #fff;
+      padding: 0.9rem 2.2rem;
+      border-radius: 2px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.2s;
+      width: fit-content;
+    }
+    .btn-primary:hover { background: var(--rust); transform: translateY(-2px); }
+
+    .hero-image {
+      position: relative;
+      overflow: hidden;
+      background: #e8d5c0;
+    }
+
+    .hero-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80') center/cover no-repeat;
+      filter: saturate(0.8);
+      transition: transform 0.6s ease;
+    }
+
+    .hero-image:hover::before { transform: scale(1.04); }
+
+    .hero-image-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 40%;
+      background: linear-gradient(to top, rgba(30,24,16,0.5), transparent);
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-bar {
+      background: var(--terracotta);
+      color: #fff;
+      padding: 0.75rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .marquee-track {
+      display: inline-flex;
+      animation: marquee 22s linear infinite;
+      gap: 3rem;
+    }
+
+    .marquee-track span {
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .marquee-track .dot { color: rgba(255,255,255,0.5); }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      text-align: center;
+      padding: 5rem 5vw 3rem;
+    }
+
+    .section-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .section-title em { font-style: italic; color: var(--terracotta); }
+
+    /* ── FEATURED POSTS ── */
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      padding: 0 5vw 5rem;
+    }
+
+    .post-card {
+      background: var(--card-bg);
+      border: 1px solid #e8ddd0;
+      border-radius: 4px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .post-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(30,24,16,0.12);
+    }
+
+    .post-card:nth-child(2) { animation-delay: 0.1s; }
+    .post-card:nth-child(3) { animation-delay: 0.2s; }
+
+    .post-thumb {
+      height: 220px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .post-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .post-card:hover .post-thumb img { transform: scale(1.06); }
+
+    .post-tag {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      background: var(--terracotta);
+      color: #fff;
+      font-size: 0.65rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+      font-weight: 500;
+    }
+
+    .post-body { padding: 1.5rem; }
+
+    .post-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.5px;
+    }
+
+    .post-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 0.75rem;
+      color: var(--dark);
+    }
+
+    .post-excerpt {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+    }
+
+    .post-link {
+      font-size: 0.78rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px solid var(--terracotta);
+      padding-bottom: 1px;
+      transition: opacity 0.2s;
+    }
+
+    .post-link:hover { opacity: 0.7; }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: var(--terracotta);
+      margin: 0 auto 2rem;
+    }
+
+    /* ── ABOUT STRIP ── */
+    .about-strip {
+      background: var(--dark);
+      color: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 360px;
+    }
+
+    .about-img {
+      background: url('https://images.unsplash.com/photo-1607877361964-d41a6f6e6f8b?w=700&q=80') center/cover;
+      filter: brightness(0.8);
+    }
+
+    .about-content {
+      padding: 4rem 5vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .about-content .section-eyebrow { color: #c8a882; }
+
+    .about-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      color: var(--cream);
+    }
+
+    .about-title em { font-style: italic; color: var(--terracotta); }
+
+    .about-text {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: #c8b9a8;
+      max-width: 420px;
+    }
+
+    /* ── NEWSLETTER ── */
+    .newsletter {
+      padding: 5rem 5vw;
+      text-align: center;
+      background: var(--warm-white);
+      border-top: 1px solid #e8ddd0;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .newsletter-form input {
+      padding: 0.85rem 1.5rem;
+      border: 1px solid #d0c4b4;
+      background: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      width: 300px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .newsletter-form input:focus { border-color: var(--terracotta); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      color: #8a7a6a;
+      text-align: center;
+      padding: 2.5rem;
+      font-size: 0.82rem;
+      letter-spacing: 0.5px;
+    }
+
+    footer a { color: var(--terracotta); text-decoration: none; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-text { animation: fadeUp 0.9s ease both; }
+    .section-header { animation: fadeUp 0.7s ease both; }
+
+    /* ── RECIPE HIGHLIGHT ── */
+    .recipe-strip {
+      padding: 4rem 5vw;
+      background: #f0e8dc;
+    }
+
+    .recipe-strip-inner {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .recipe-icon {
+      font-size: 5rem;
+      flex-shrink: 0;
+    }
+
+    .recipe-info .label {
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .recipe-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+
+    .recipe-info p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-image { height: 300px; }
+      .posts-grid { grid-template-columns: 1fr; }
+      .about-strip { grid-template-columns: 1fr; }
+      .about-img { height: 250px; }
+      .recipe-strip-inner { flex-direction: column; text-align: center; }
+      nav { flex-wrap: wrap; gap: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Culinary <span>Club</span></div>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Recipes</a></li>
+    <li><a href="#">Events</a></li>
+    <li><a href="#">Members</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">🍴 School Culinary Club Blog</p>
+    <h1 class="hero-title">
+      Where<br><em>Passion</em><br>Meets the<br>Kitchen
+    </h1>
+    <p class="hero-sub">
+      Recipes, stories, and culinary adventures from our school's most passionate cooks. Join us as we explore flavors, cultures, and creativity through food.
+    </p>
+    <a href="#posts" class="btn-primary">Read Our Blog</a>
+  </div>
+  <div class="hero-image">
+    <div class="hero-image-overlay"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>Baking</span><span class="dot">✦</span>
+    <span>Italian Cuisine</span><span class="dot">✦</span>
+    <span>Vegetarian Cooking</span><span class="dot">✦</span>
+    <span>Pastry Arts</span><span class="dot">✦</span>
+    <span>Asian Flavors</span><span class="dot">✦</span>
+    <span>Knife Skills</span><span class="dot">✦</span>
+    <span>Farm to Table</span><span class="dot">✦</span>
+    <span>Desserts</span><span class="dot">✦</span>
+    <!-- duplicate for seamless loop -->
+    <span>Baking</span><span class="dot">✦</span>
+    <span>Italian Cuisine</span><span class="dot">✦</span>
+    <span>Vegetarian Cooking</span><span class="dot">✦</span>
+    <span>Pastry Arts</span><span class="dot">✦</span>
+    <span>Asian Flavors</span><span class="dot">✦</span>
+    <span>Knife Skills</span><span class="dot">✦</span>
+    <span>Farm to Table</span><span class="dot">✦</span>
+    <span>Desserts</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- BLOG POSTS -->
+<div class="section-header" id="posts">
+  <p class="section-eyebrow">Latest Posts</p>
+  <h2 class="section-title">From Our <em>Kitchen</em></h2>
+  <div class="divider"></div>
+</div>
+
+<div class="posts-grid">
+
+  <article class="post-card">
+    <div class="post-thumb">
+      <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&q=80" alt="Homemade Pizza" />
+      <span class="post-tag">Recipe</span>
+    </div>
+    <div class="post-body">
+      <p class="post-meta">Feb 18, 2025 · by Jamie L.</p>
+      <h3 class="post-title">The Perfect Homemade Margherita Pizza</h3>
+      <p class="post-excerpt">After three weeks of testing dough ratios, we finally cracked the code. A crispy, chewy crust and simple toppings that sing.</p>
+      <a href="#" class="post-link">Read More →</a>
+    </div>
+  </article>
+
+  <article class="post-card">
+    <div class="post-thumb">
+      <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=500&q=80" alt="Baking Day" />
+      <span class="post-tag">Event</span>
+    </div>
+    <div class="post-body">
+      <p class="post-meta">Feb 10, 2025 · by Alex T.</p>
+      <h3 class="post-title">Our Annual Bake Sale Was a Huge Success</h3>
+      <p class="post-excerpt">Over 200 treats sold, $480 raised for the school garden. Here's how we prepped over 100 items in a single afternoon.</p>
+      <a href="#" class="post-link">Read More →</a>
+    </div>
+  </article>
+
+  <article class="post-card">
+    <div class="post-thumb">
+      <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=500&q=80" alt="Desserts" />
+      <span class="post-tag">Technique</span>
+    </div>
+    <div class="post-body">
+      <p class="post-meta">Jan 29, 2025 · by Sam K.</p>
+      <h3 class="post-title">Mastering the Art of French Macarons</h3>
+      <p class="post-excerpt">Cracked shells? Hollow centers? We've been there. Here's everything we learned from 5 failed batches and one perfect one.</p>
+      <a href="#" class="post-link">Read More →</a>
+    </div>
+  </article>
+
+  <article class="post-card">
+    <div class="post-thumb">
+      <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&q=80" alt="Salads" />
+      <span class="post-tag">Recipe</span>
+    </div>
+    <div class="post-body">
+      <p class="post-meta">Jan 20, 2025 · by Mia R.</p>
+      <h3 class="post-title">Five Seasonal Salads to Brighten Any Lunch</h3>
+      <p class="post-excerpt">Healthy doesn't have to be boring. These salads are packed with flavor, color, and easy to pack for school.</p>
+      <a href="#" class="post-link">Read More →</a>
+    </div>
+  </article>
+
+  <article class="post-card">
+    <div class="post-thumb">
+      <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=500&q=80" alt="Pasta" />
+      <span class="post-tag">Workshop</span>
+    </div>
+    <div class="post-body">
+      <p class="post-meta">Jan 12, 2025 · by Chris P.</p>
+      <h3 class="post-title">Hand-Rolling Pasta: A Workshop Recap</h3>
+      <p class="post-excerpt">Chef Rivera visited us last Tuesday and taught 18 members how to make fettuccine entirely by hand. Here's what we learned.</p>
+      <a href="#" class="post-link">Read More →</a>
+    </div>
+  </article>
+
+  <article class="post-card">
+    <div class="post-thumb">
+      <img src="https://images.unsplash.com/photo-1596560548464-f010e398c70c?w=500&q=80" alt="Spices" />
+      <span class="post-tag">Culture</span>
+    </div>
+    <div class="post-body">
+      <p class="post-meta">Jan 5, 2025 · by Priya S.</p>
+      <h3 class="post-title">A Journey Through Indian Spice Blends</h3>
+      <p class="post-excerpt">Garam masala, chaat masala, and more. We explored the science and stories behind the spices that define a cuisine.</p>
+      <a href="#" class="post-link">Read More →</a>
+    </div>
+  </article>
+
+</div>
+
+<!-- RECIPE HIGHLIGHT -->
+<div class="recipe-strip">
+  <div class="recipe-strip-inner">
+    <div class="recipe-icon">🍰</div>
+    <div class="recipe-info">
+      <p class="label">Recipe of the Month</p>
+      <h3>Classic Lemon Tart</h3>
+      <p>This month we're obsessed with a silky, bright lemon curd nestled in a buttery shortcrust shell. Simple ingredients, stunning results — the perfect beginner showstopper. Full recipe in our Recipes section.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about-strip">
+  <div class="about-img"></div>
+  <div class="about-content">
+    <p class="section-eyebrow">Who We Are</p>
+    <h2 class="about-title">More Than<br><em>Just Cooking</em></h2>
+    <p class="about-text">
+      The Culinary Club meets every Friday after school. We're a group of students who believe food is one of the best ways to understand culture, science, and creativity. Whether you're a complete beginner or an experienced home cook, everyone's welcome at our table.
+    </p>
+    <br>
+    <a href="#" class="btn-primary" style="margin-top:1rem;">Join the Club</a>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <p class="section-eyebrow">Stay in the Loop</p>
+  <h2 class="section-title">Never Miss a <em>Recipe</em></h2>
+  <div class="divider"></div>
+  <p style="color:var(--muted); font-size:0.95rem; max-width:450px; margin:0 auto; line-height:1.7;">
+    Subscribe to get our latest blog posts, event announcements, and exclusive recipes delivered straight to your inbox.
+  </p>
+  <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thanks for subscribing! 🍴');">
+    <input type="email" placeholder="your@email.com" required />
+    <button type="submit" class="btn-primary">Subscribe</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p style="font-family:'Playfair Display',serif; font-size:1.1rem; color:#c8b9a8; margin-bottom:0.5rem;">Culinary Club</p>
+  <p>© 2025 School Culinary Club Blog · Built with ❤️ and Python &amp; GitHub Pages</p>
+  <p style="margin-top:0.4rem;"><a href="#">GitHub</a> · <a href="#">Instagram</a> · <a href="#">Contact Us</a></p>
+</footer>
+
+</body>
+</html>
