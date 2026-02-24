@@ -1,12 +1,12 @@
 # 🍴 Culinary Club Blog
 
-A beautiful blog website for our school's Culinary Club — built with HTML/CSS and deployable via GitHub Pages.
+A beautiful blog website for a Culinary Club — built with HTML/CSS and deployable via GitHub Pages.
 
 ---
 
 ## 🚀 Run Locally
 
-You only need Python installed (which you already have!).
+
 
 ```bash
 # Clone or download the repo, then:
@@ -72,4 +72,3 @@ Open `index.html` and find the `posts-grid` section. Copy and paste a new `<arti
 
 ---
 
-Made with ❤️ by the Culinary Club
